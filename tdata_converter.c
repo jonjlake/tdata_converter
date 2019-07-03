@@ -1,27 +1,34 @@
 #include <stdlib.h>
-#include "wav_reader.h"
-#include "fft.h"
+#include "C:\\CPP\\wav_reader\\wav_reader.h"
+#include "C:\\CPP\\fft\\fft.h"
 
 /* Main task: convert "short" to "double" */
 
-void short_to_double(short **input_arrays, double ***output_arrays, int num_channels,
-		int num_elements))
+/* Is this the appropriate place to allocate the sample_array? */
+void convert_channel_samples_to_sample_doubles(WaveFile *p_wavefile, FourierData **p_fourier_data_array)
 {
-	int i, j;
+	int i,j;
+	
+	*p_fourier_data_array = (FourierData *)calloc(p_wavefile->num_channels, sizeof(**p_fourier_data_array));
 
-	for (i = 0; i < num_channels; i++)
+	for (i = 0; i < p_wavefile->num_channels; i++)
 	{
-		for (j = 0; j < num_elements)
+		(*p_fourier_data_array)[i].sample_array = calloc(p_wavefile->num_frames, 
+			sizeof(*(*p_fourier_data_array)[i].sample_array));
+	
+		(*p_fourier_data_array)[i].num_samples = p_wavefile->num_frames;
+		(*p_fourier_data_array)[i].dt = p_wavefile->dt;
+
+		for (j = 0; j < p_wavefile->num_frames; j++)
 		{
-			(*output_arrays)[i][j] = (double)input_arrays[i][j];
+			(*p_fourier_data_array)[i].sample_array[j] = (double)p_wavefile->channel_samples[i][j];
 		}
-	}
+	}		
+
+	
 }
 
-void convert_channel_samples_to_sample_doubles(WaveFile *p_wavefile, otherdata)
+int main()
 {
-	short_to_double(p_wavefile->channel_samples, &output_arrays,
-			p_wavefile->num_channels,
-			p_wavefile->data_section_size / p_wavefile->bitrate_math);
+	return 0;
 }
-
