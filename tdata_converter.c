@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "C:\\CPP\\wav_reader\\wav_reader.h"
 #include "C:\\CPP\\fft\\fft.h"
+#include "tdata_converter.h"
 
 /* Main task: convert "short" to "double" */
 
@@ -28,7 +29,25 @@ void convert_channel_samples_to_sample_doubles(WaveFile *p_wavefile, FourierData
 	
 }
 
+void convert_sample_doubles_to_channel_shorts(WaveFile *p_wavefile, FourierData *fourier_data_array)
+{
+	int i, j;
+
+	/* Assume previous allocation */
+	for (i = 0; i < p_wavefile->num_channels; i++)
+	{
+		for (j = 0; j < p_wavefile->num_frames; j++)
+		{
+			p_wavefile->channel_samples[i][j] = (short int)fourier_data_array[i].sample_ift[j].re;
+			printf("fourier real %f converted to wavefile short %d\n", 
+					fourier_data_array[i].sample_ift[j].re, p_wavefile->channel_samples[i][j]);
+		}
+	}
+}
+
+#if 0
 int main()
 {
 	return 0;
 }
+#endif
