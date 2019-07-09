@@ -39,7 +39,7 @@ void convert_sample_doubles_to_channel_shorts(WaveFile *p_wavefile, FourierData 
 		for (j = 0; j < p_wavefile->num_frames; j++)
 		{
 			p_wavefile->channel_samples[i][j] = (short int)fourier_data_array[i].sample_ift[j].re;
-			printf("fourier real %f converted to wavefile short %d\n", 
+//			printf("fourier real %f converted to wavefile short %d\n", 
 					fourier_data_array[i].sample_ift[j].re, p_wavefile->channel_samples[i][j]);
 		}
 	}
